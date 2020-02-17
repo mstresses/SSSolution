@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Testar";
+}
+
+<h2>Testar</h2>
+
+<form method="post">
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Descrição</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Descricao" id="Descricao" />
+            <span class="text-danger" id="erroDescricao" name="erroDescricao"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Preço</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Preco" id="Preco" />
+            <span class="text-danger" id="erroPreco" name="erroPreco"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Cor</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Cor" id="Cor" />
+            <span class="text-danger" id="erroCor" name="erroCor"></span>
+        </div>
+    </div>
+    
+    @if (ViewBag.MensagemErro != null)
+    {
+        <div class="col-md-10">
+            <span class="text-danger">@ViewBag.MensagemErro</span>
+        </div>
+    }
+
+
+    <input name="BotaoEnviar" id="BotaoEnviar" type="submit" value="Enviar"/>
+    <button style="margin-left: 5px;" class="orange">Limpar</button>
+
+</form>
+
+@section scripts{
+    
+    <script type="text/javascript">
+
+        $('#BotaoEnviar').click(function (e) {
+
+            //var descricao document.getElementById("Descricao").value;
+            var sucesso = true;
+            var descricao = $("#Descricao").val();
+            var preco = $("#Preco").val();
+            var cor = $("#Cor").val();
+
+            //Validações em JQuery(mais fácil de programar)
+            if (descricao == "") {
+                //document.getElementById("erroDescricao").innerHTML = "A descrição deve ser informada";
+                $("#erroDescricao").html("A descrição deve ser informada");
+                sucesso = false;
+            }
+            else {
+                $("#erroDescricao").html("");
+            }
+
+            if (preco == "") {
+                $("#erroPreco").html("O preço deve ser informado");
+                sucesso = false;
+            }
+            else {
+                $("#erroPreco").html("");
+            }
+
+            if (cor == "") {
+                $("#erroCor").html("A cor deve ser informada");
+                sucesso = false;
+            }
+            else {
+                $("#erroCor").html("");
+            }
+
+            if (!sucesso) {
+                e.preventDefault()
+            }
+        });
+
+    </script>
+}
