@@ -39,7 +39,6 @@ namespace MVCWebPresentationLayer.Controllers
                 //Retorna a mesma tela que o usuário estava
                 return View();
             }
-            
             return View();
         }
 

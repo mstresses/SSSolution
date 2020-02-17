@@ -30,17 +30,24 @@
             <span class="text-danger" id="erroCor" name="erroCor"></span>
         </div>
     </div>
-    
-    @if (ViewBag.MensagemErro != null)
-    {
-        <div class="col-md-10">
-            <span class="text-danger">@ViewBag.MensagemErro</span>
+
+    <div class="row"> 
+        @if (ViewBag.MensagemErro != null)
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    <span class="text-danger">@ViewBag.MensagemErro</span>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input name="BotaoEnviar" id="BotaoEnviar" type="submit" value="Enviar" />
+                <button style="margin-left: 5px;" class="orange">Limpar</button>
+            </div>
         </div>
-    }
-
-
-    <input name="BotaoEnviar" id="BotaoEnviar" type="submit" value="Enviar"/>
-    <button style="margin-left: 5px;" class="orange">Limpar</button>
+    </div>
 
 </form>
 
