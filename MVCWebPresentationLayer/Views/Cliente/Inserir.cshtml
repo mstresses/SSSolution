@@ -33,8 +33,8 @@
     <div class="form-group">
         <label class="control-label col-md-2">Email</label>
         <div class="col-md-10">
-            <input class="form-control" type="email" name="Email" id="Email" required />
-            <span class="text-danger" id="erroEmail" name="erroEMail"></span>
+            <input class="form-control" type="text" name="Email" id="Email" required />
+            <span class="text-danger" id="erroEmail" name="erroEmail"></span>
         </div>
     </div>
 
@@ -64,11 +64,11 @@
                 </div>
             </div>
         }
-        else
+        @if (ViewBag.Sucesso != null)
         {
             <div class="form-group">
                 <div class="col-md-10">
-                    <span class="text-danger" id="sucessoCadastro" name="sucessoCadastro"></span>
+                    <span class="text-success">@ViewBag.Sucesso</span>
                 </div>
             </div>
         }
@@ -79,6 +79,7 @@
                 <button style="margin-left: 5px;" class="orange">Limpar</button>
             </div>
         </div>
+
     </div>
 
 </form>
@@ -87,23 +88,24 @@
 
     <script type="text/javascript">
 
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        }
+        //Este evento será disparado quando o DOM (Document Object Model) for carregado.
+        $(document).ready(function () { 
+
+        var $cpfMask = $("#CPF");
+            $cpfMask.mask('000.000.000-00', { reverse: false });
 
         $('#BotaoEnviar').click(function (e) {
 
             //var descricao document.getElementById("Descricao").value;
             var sucesso = true;
             var nome = $("#Nome").val();
-            var cpf = $("#CPF").val().replace(/[^0-9]/g, '');
+            var cpf = $("#CPF").val();
             var email = $("#Email").val();
             var dataNascimento = $("#DataNascimento").val();
             var senha = $("#Senha").val();
             var confirmarSenha = $("#ConfirmarSenha").val();
 
-            //Validações em JQuery(mais fácil de programar)
+            //Validações em JQuery(mais fácil de programar), sempre com o $.
             if (nome == "") {
                 //document.getElementById("erroDescricao").innerHTML = "A descrição deve ser informada";
                 $("#erroNome").html("O nome deve ser informado.");
@@ -116,16 +118,18 @@
                 $("#erroNome").html("");
             }
 
+
             if (cpf == "") {
                 $("#erroCPF").html("O CPF deve ser informado.");
                 sucesso = false;
             }
-            else if (cpf.length != 11) {
+            else if (cpf.length != 14) {
                 $("erroCpf").html("O CPF deve conter 14 caracteres.")
             }
             else {
                 $("#erroCPF").html("");
             }
+
 
             if (dataNascimento == "") {
                 $("erroDataNascimento").html("A Data de Nascimento deve ser informada.")
@@ -133,6 +137,7 @@
             else {
                 $("erroDataNascimento").html("");
             }
+
 
             if (email == "") {
                 $("#erroEmail").html("O Email deve ser informado.");
@@ -146,6 +151,7 @@
                 $("#erroEmail").html("");
             }
 
+
             if (senha == "") {
                 $("#erroSenha").html("A senha deve ser informada.");
                 sucesso = false;
@@ -158,6 +164,7 @@
                 $("erroSenha").html("");
             }
 
+
             if (confirmarSenha == "" || confirmarSenha != senha) {
                 $("#erroConfirmarSenha").html("As senhas não conferem.")
             }
@@ -165,13 +172,11 @@
                 $("erroConfereSenha").html("");
             }
 
+
             if (!sucesso) {
                 e.preventDefault()
             }
-            else {
-                $("sucessoCadastro").html("Cliente cadastrado com sucesso.")
-            }
         });
-
+    });
     </script>
 }

@@ -6,7 +6,8 @@ using System.Web;
 
 namespace MVCWebPresentationLayer.Models
 {
-    public class ClienteViewModel
+    //ViewModel só representa a tela.
+    public class ClienteInsertViewModel
     {
         public int ID { get; set; }
 
