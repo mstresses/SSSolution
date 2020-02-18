@@ -9,7 +9,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Nome</label>
         <div class="col-md-10">
-            <input class="form-control" type="text" name="Nome" id="Nome" required/>
+            <input class="form-control" type="text" name="Nome" id="Nome" required />
             <span class="text-danger" id="erroNome" name="erroNome"></span>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">CPF</label>
         <div class="col-md-10">
-            <input class="form-control" type="text" name="CPF" id="CPF" required/>
+            <input class="form-control" type="text" name="CPF" id="CPF" required />
             <span class="text-danger" id="erroCPF" name="erroCPF"></span>
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Data de Nascimento</label>
         <div class="col-md-10">
-            <input class="form-control" type="date" name="DataNascimento" id="DataNascimento" required/>
+            <input class="form-control" type="date" name="DataNascimento" id="DataNascimento" required />
             <span class="text-danger" id="erroDataNascimento" name="erroDataNascimento"></span>
         </div>
     </div>
@@ -33,7 +33,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Email</label>
         <div class="col-md-10">
-            <input class="form-control" type="email" name="Email" id="Email" required/>
+            <input class="form-control" type="email" name="Email" id="Email" required />
             <span class="text-danger" id="erroEmail" name="erroEMail"></span>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Senha</label>
         <div class="col-md-10">
-            <input class="form-control" type="password" name="Senha" id="Senha" required/>
+            <input class="form-control" type="password" name="Senha" id="Senha" required />
             <span class="text-danger" id="erroSenha" name="erroSenha"></span>
         </div>
     </div>
@@ -49,10 +49,11 @@
     <div class="form-group">
         <label class="control-label col-md-2">Confirmar Senha</label>
         <div class="col-md-10">
-            <input class="form-control" type="password" name="ConfirmarSenha" id="ConfirmarSenha" required/>
+            <input class="form-control" type="password" name="ConfirmarSenha" id="ConfirmarSenha" required />
             <span class="text-danger" id="erroConfirmarSenha" name="erroConfirmarSenha"></span>
         </div>
     </div>
+
 
     <div class="row">
         @if (ViewBag.MensagemErro != null)
@@ -86,13 +87,17 @@
 
     <script type="text/javascript">
 
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
         $('#BotaoEnviar').click(function (e) {
 
             //var descricao document.getElementById("Descricao").value;
             var sucesso = true;
             var nome = $("#Nome").val();
             var cpf = $("#CPF").val().replace(/[^0-9]/g, '');
-            var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
             var email = $("#Email").val();
             var dataNascimento = $("#DataNascimento").val();
             var senha = $("#Senha").val();
@@ -104,7 +109,7 @@
                 $("#erroNome").html("O nome deve ser informado.");
                 sucesso = false;
             }
-            else if (nome < 5 || nome > 40) {
+            else if (nome.length < 5 || nome.length > 40) {
                 $("#erroNome").html("O nome deve conter entre 5 e 40 caracteres.")
             }
             else {
@@ -115,7 +120,7 @@
                 $("#erroCPF").html("O CPF deve ser informado.");
                 sucesso = false;
             }
-            else if (cpf != 14) {
+            else if (cpf.length != 11) {
                 $("erroCpf").html("O CPF deve conter 14 caracteres.")
             }
             else {
@@ -133,7 +138,7 @@
                 $("#erroEmail").html("O Email deve ser informado.");
                 sucesso = false;
             }
-            else if (!emailReg(email)) {
+            else if (!validateEmail(email)) {
                 $("#erroEmail").html("Digite um endereço de email válido.");
                 sucesso = false;
             }
@@ -145,7 +150,7 @@
                 $("#erroSenha").html("A senha deve ser informada.");
                 sucesso = false;
             }
-            else if (senha < 6 || senha > 16) {
+            else if (senha.length < 6 || senha.length > 16) {
                 $("#erroSenha").html("A senha deve conter entre 6 e 16 caracteres.");
                 sucesso = false;
             }
