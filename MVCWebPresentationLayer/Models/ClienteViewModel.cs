@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MVCWebPresentationLayer.Models
 {
-    public class CadastroClienteViewModel
+    public class ClienteViewModel
     {
         public int ID { get; set; }
 

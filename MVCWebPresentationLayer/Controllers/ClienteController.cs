@@ -11,14 +11,14 @@ namespace MVCWebPresentationLayer.Controllers
     public class ClienteController : Controller
     {
         [HttpGet]
-        public ActionResult Cadastrar()
+        public ActionResult Inserir()
         {
             return View();
         }
 
         //Precisa condecorar ele, e significa que vai receber dados.
         [HttpPost]
-        public ActionResult Cadastrar(CadastroClienteViewModel clienteViewModel)
+        public ActionResult Inserir(ClienteViewModel clienteViewModel)
         {
             ClienteMockBLL mockBLL = new ClienteMockBLL();
             try
@@ -32,7 +32,6 @@ namespace MVCWebPresentationLayer.Controllers
             catch (Exception ex)
             {
                 //Se chegou aqui, o método Cadastrar do MockBLL deu erro :(
-
                 ViewBag.MensagemErro = ex.Message;
 
                 //Retorna a mesma tela que o usuário estava

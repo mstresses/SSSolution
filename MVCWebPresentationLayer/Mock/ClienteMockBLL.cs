@@ -8,7 +8,7 @@ namespace MVCWebPresentationLayer.Mock
 {
     public class ClienteMockBLL
     {
-        public void Cadastrar(CadastroClienteViewModel clienteViewModel)
+        public void Cadastrar(ClienteViewModel clienteViewModel)
         {
             Random rdm = new Random();
             int numeroSorteado = rdm.Next(0, 11);

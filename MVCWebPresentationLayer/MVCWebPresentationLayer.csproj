@@ -130,7 +130,7 @@
     <Compile Include="Mock\ProdutoMockBLL.cs" />
     <Compile Include="Models\ProdutoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\CadastroClienteViewModel.cs" />
+    <Compile Include="Models\ClienteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -170,7 +170,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Produto\Cadastrar.cshtml" />
     <Content Include="Views\Produto\Testar.cshtml" />
-    <Content Include="Views\Cliente\Cadastrar.cshtml" />
+    <Content Include="Views\Cliente\Inserir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
