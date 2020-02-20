@@ -1,4 +1,8 @@
-﻿using MVCWebPresentationLayer.Mock;
+﻿using AutoMapper;
+using BLL.Impl;
+using Common;
+using DTO;
+using MVCWebPresentationLayer.Mock;
 using MVCWebPresentationLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -22,23 +26,36 @@ namespace MVCWebPresentationLayer.Controllers
         [HttpPost]
         public ActionResult Inserir(ClienteInsertViewModel clienteViewModel) //Método dentro do controller define para onde vai o site.
         {
-            ClienteMockBLL mockBLL = new ClienteMockBLL();
+            ClienteService svc = new ClienteService();
+
+            //Transforma o DTO em ViewModel (AUTOMAPPER)
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ClienteInsertViewModel, ClienteDTO>();
+            });
+
+            IMapper mapper = configuration.CreateMapper();
+
+            //Transforma o ClienteInsertViewModel em um ClienteDTO.
+            ClienteDTO dto = mapper.Map<ClienteDTO>(clienteViewModel);
+
             try
             {
-                //Esta linha pode lançar uma exception, logo ela deve estar dentro e um bloco try.
-                mockBLL.Cadastrar(clienteViewModel);
-
-                ViewBag.Sucesso = "Cliente cadastrado com sucesso.";
-                return View();
+                svc.Insert(dto);
+                //Se funcionou, redireciona pra página inicial.
+                return RedirectToAction("Home", "Index");
+            }
+            catch (NecoException ex)
+            {
+                //Se caiu aqui, o ClienteService lançou a excessão por validação de campos.
+                ViewBag.ValidationErrors = ex.Errors;
             }
             catch (Exception ex)
             {
-                //Se chegou aqui, o método Cadastrar do MockBLL deu erro :(
-                ViewBag.MensagemErro = ex.Message;
-
-                //Retorna a mesma tela que o usuário estava
-                return View();
+                //Se caiu aqui, o ClienteService lançou a excessãogenérica, provavelmente falha no acesso ao banco.
+                ViewBag.ErrorMessage = ex.Message;
             }
+            return View();
         }
 
         [HttpGet]

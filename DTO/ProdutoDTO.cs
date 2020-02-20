@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MVCWebPresentationLayer.Models
+namespace DTO
 {
-    public class ProdutoViewModel
+    public class ProdutoDTO
     {
+        public int ID { get; set; }
+
         public string Descricao { get; set; }
 
         public double Preco { get; set; }
-       
+
         public string Cor { get; set; }
 
         public bool VaiPilha { get; set; }
