@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Models\ClienteQueryViewModel.cs" />
     <Compile Include="Models\ProdutoInsertViewModel.cs" />
+    <Compile Include="Models\ProdutoQueryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ClienteInsertViewModel.cs" />
   </ItemGroup>
@@ -181,6 +182,7 @@
     <Content Include="Views\Produto\Cadastrar.cshtml" />
     <Content Include="Views\Cliente\Inserir.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

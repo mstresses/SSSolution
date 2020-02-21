@@ -13,7 +13,6 @@ namespace MVCWebPresentationLayer.Controllers
 {
     public class ClienteController : Controller
     {
-
         //Métodos Http mais populares são GET e POST. Por padrão, todo hiperlink ou url digitada manualmente, efetuará chamada ao servidor utilizando GET.
         //O POST é utilizado quando queremos ENVIAR dados ao servidor, então é mais comum termos ele em um form com vários componentes inputs.
         [HttpGet]

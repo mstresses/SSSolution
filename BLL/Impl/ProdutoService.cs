@@ -62,5 +62,22 @@ namespace BLL.Impl
                 throw new Exception("Erro no banco de dados, contate do administrador.");
             }
         }
+
+        public List<ProdutoDTO> GetData()
+        {
+            try
+            {
+                using (SSContext context = new SSContext())
+                {
+                    List<ProdutoDTO> produtos = context.Produtos.ToList(); //igual return context.Produtos.ToList();
+                    return produtos;
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
+                throw new Exception("Erro no banco de dados, contate do administrador.");
+            }
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace BLL.Interfaces
     public interface IProdutoService
     {
         void Insert(ProdutoDTO produto);
+        List<ProdutoDTO> GetData();
     }
 }

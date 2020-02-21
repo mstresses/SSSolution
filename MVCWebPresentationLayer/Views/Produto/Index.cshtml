@@ -1,0 +1,25 @@
+﻿@model List<MVCWebPresentationLayer.Models.ProdutoQueryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Produtos Cadastrados</h2>
+
+<table style="color:darkblue" class="table">
+    <tr>
+        <th>ID</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Cor</th>
+    </tr>
+    @foreach (MVCWebPresentationLayer.Models.ProdutoQueryViewModel item in Model)
+    {
+        <tr>
+            <th>@item.ID</th>
+            <th>@item.Descricao</th>
+            <th>@item.Preco</th>
+            <th>@item.Cor</th>
+        </tr>
+    }
+</table>

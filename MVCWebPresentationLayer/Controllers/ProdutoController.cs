@@ -60,7 +60,29 @@ namespace MVCWebPresentationLayer.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                ProdutoService svc = new ProdutoService();
+                List<ProdutoDTO> produtos = svc.GetData();
+
+                var configuration = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<ProdutoDTO, ProdutoQueryViewModel>();
+                });
+
+                IMapper mapper = configuration.CreateMapper();
+
+                //Transforma o ClienteDTO em um ClienteQueryViewModel e trás os intens pra tela.
+                //Este objeto "dados" é uma lista de objetos ViewModel.
+                List<ProdutoQueryViewModel> dados = mapper.Map<List<ProdutoQueryViewModel>>(produtos);
+
+                //Os dados no index(html) vira Model(objeto).
+                return View(dados);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
     }
 }
