@@ -2,7 +2,6 @@
 using BLL.Impl;
 using Common;
 using DTO;
-using MVCWebPresentationLayer.Mock;
 using MVCWebPresentationLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +42,9 @@ namespace MVCWebPresentationLayer.Controllers
             {
                 svc.Insert(dto);
                 //Se funcionou, redireciona pra página inicial.
-                return RedirectToAction("Home", "Index");
+                //return RedirectToAction("Home", "Index");
+                ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
+                return View();
             }
             catch (NecoException ex)
             {

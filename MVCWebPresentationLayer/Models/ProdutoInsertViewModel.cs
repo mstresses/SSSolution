@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MVCWebPresentationLayer.Models
 {
-    public class ProdutoViewModel
+    public class ProdutoInsertViewModel
     {
         public string Descricao { get; set; }
 

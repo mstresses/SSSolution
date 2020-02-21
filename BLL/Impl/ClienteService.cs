@@ -43,9 +43,16 @@ namespace BLL.Impl
             {
                 errors.Add(new Error() { Message = "O email deve ser informado.", FieldName = "Email" });
             }
-            else if (true)
-            {
+            #endregion
 
+            #region VALIDAÇÃO SENHA
+            if (string.IsNullOrWhiteSpace(cliente.Senha))
+            {
+                errors.Add(new Error() { Message = "A senha deve ser informada.", FieldName = "Senha" });
+            }
+            else if (cliente.Senha.Length <6 || cliente.Senha.Length > 40)
+            {
+                errors.Add(new Error() { Message = "A senha deve conter entre 6 e 40 caracteres.", FieldName = "Senha" });
             }
             #endregion
 

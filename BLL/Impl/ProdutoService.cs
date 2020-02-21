@@ -38,7 +38,7 @@ namespace BLL.Impl
             #region VALIDAÇÃO PREÇO
             if (produto.Preco == 0)
             {
-                errors.Add(new Error() { Message = "O preço deve ser informado.", FieldName = "Preço" });
+                errors.Add(new Error() { Message = "O preço deve ser informado.", FieldName = "Preco" });
             }
             #endregion
 

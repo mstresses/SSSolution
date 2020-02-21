@@ -4,6 +4,10 @@
 
 <h2>Cadastro de Cliente</h2>
 
+<body>
+    <img src="https://image.freepik.com/vector-gratis/mundo-erotico-signo-neon-tienda-sexo-condon-rosado-pared-ladrillo-azul-marino_1262-13428.jpg" height="200" , width="480">
+</body>
+
 <form method="post">
 
     <div class="form-group">
@@ -156,8 +160,8 @@
                 $("#erroSenha").html("A senha deve ser informada.");
                 sucesso = false;
             }
-            else if (senha.length < 6 || senha.length > 16) {
-                $("#erroSenha").html("A senha deve conter entre 6 e 16 caracteres.");
+            else if (senha.length < 6 || senha.length > 40) {
+                $("#erroSenha").html("A senha deve conter entre 6 e 40 caracteres.");
                 sucesso = false;
             }
             else {

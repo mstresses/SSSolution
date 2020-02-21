@@ -1,4 +1,7 @@
-﻿using MVCWebPresentationLayer.Mock;
+﻿using AutoMapper;
+using BLL.Impl;
+using Common;
+using DTO;
 using MVCWebPresentationLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -11,47 +14,46 @@ namespace MVCWebPresentationLayer.Controllers
     public class ProdutoController : Controller
     {
         [HttpGet]
-        public ActionResult Testar()
+        public ActionResult Cadastrar()
         {
             return View();
         }
 
         //HttpPost, significa que este método irá atender uma requisição feita no back-end via click do botão em um form com httppost da View Testar.
         [HttpPost]
-        public ActionResult Testar(ProdutoViewModel viewModel) //IGUAL AO BUTTON_CLICK
+        public ActionResult Cadastrar(ProdutoInsertViewModel viewModel) //IGUAL AO BUTTON_CLICK
         {
-            //O objeto viewModel virá preenchido de acordo com os names dos inputs do form que teve seu botão clicado.
-            ProdutoMockBLL mockBLL = new ProdutoMockBLL();
+            ProdutoService svc = new ProdutoService();
+
+            //Transforma o DTO em ViewModel (AUTOMAPPER)
+            var configuration = new MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<ProdutoInsertViewModel, ProdutoDTO>();
+            });
+
+            IMapper mapper = configuration.CreateMapper();
+
+            //Transforma o ProdutoInsertViewModel em um ProdutoDTO.
+            ProdutoDTO dto = mapper.Map<ProdutoDTO>(viewModel);
+
             try
             {
-                //Esta linha pode lançar uma exception, logo ela deve estar dentro e um bloco try.
-                mockBLL.Cadastrar(viewModel);
-
-                //Se chegou aqui, deu boa, não deu exception! Redirecione o usuáro para a página inicial.
-                return RedirectToAction("Index", "Home");
+                svc.Insert(dto);
+                //Se funcionou, redireciona pra página inicial.
+                //return RedirectToAction("Home", "Index");
+                ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
+                return View();
+            }
+            catch (NecoException ex)
+            {
+                //Se caiu aqui, o ProdutoService lançou a excessão por validação de campos.
+                ViewBag.ValidationErrors = ex.Errors;
             }
             catch (Exception ex)
             {
-                //Se chegou aqui, o método Cadastrar do MockBLL deu erro :(
-
-                ViewBag.MensagemErro = ex.Message;
-
-                //Retorna a mesma tela que o usuário estava
-                return View();
+                //Se caiu aqui, o ProdutoService lançou uma excessão genérica, provavelmente falha no acesso ao banco.
+                ViewBag.ErrorMessage = ex.Message;
             }
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Cadastrar()
-        {
-            return View();
-        }
-
-        //Precisa condecorar ele, e significa que vai receber dados.
-        [HttpPost]
-        public ActionResult Cadastrar(ProdutoViewModel viewModel)
-        {
             return View();
         }
 
