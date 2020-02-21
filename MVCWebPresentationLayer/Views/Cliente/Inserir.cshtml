@@ -4,9 +4,9 @@
 
 <h2>Cadastro de Cliente</h2>
 
-<body>
+@*<body>
     <img src="https://image.freepik.com/vector-gratis/mundo-erotico-signo-neon-tienda-sexo-condon-rosado-pared-ladrillo-azul-marino_1262-13428.jpg" height="200" , width="480">
-</body>
+</body>*@
 
 <form method="post">
 
@@ -148,7 +148,7 @@
                 sucesso = false;
             }
             else if (!validateEmail(email)) {
-                $("#erroEmail").html("Digite um endereço de email válido.");
+                $("#erroEmail").html("Email inválido.");
                 sucesso = false;
             }
             else {

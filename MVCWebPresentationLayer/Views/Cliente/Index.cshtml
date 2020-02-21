@@ -1,0 +1,34 @@
+﻿@model List<MVCWebPresentationLayer.Models.ClienteQueryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Clientes Cadastrados</h2>
+
+<table style="color:darkblue" class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Email</th>
+        <th>Data de Nascimento</th>
+    </tr>
+    @foreach (MVCWebPresentationLayer.Models.ClienteQueryViewModel item in Model)
+    {
+        <tr>
+            <th>@item.ID</th>
+            <th>@item.Nome</th>
+            <th>@item.CPF</th>
+            <th>@item.Email</th>
+            <th>@item.DataNascimento.ToString("dd/MM/yyyy")</th>
+        </tr>
+    }
+<div class="container">
+    <ul class="pagination">
+        <li>
+
+        </li>
+    </ul>
+</div>
+</table>

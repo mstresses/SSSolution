@@ -20,6 +20,7 @@ namespace DAO
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //Remove a pluralização das tabelas no banco.
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Properties()

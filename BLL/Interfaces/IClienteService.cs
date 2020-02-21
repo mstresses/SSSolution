@@ -10,5 +10,7 @@ namespace BLL
     public interface IClienteService
     {
         void Insert(ClienteDTO cliente);
+        List<ClienteDTO> GetData();
+
     }
 }

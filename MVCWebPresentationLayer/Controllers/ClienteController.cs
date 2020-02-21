@@ -13,6 +13,7 @@ namespace MVCWebPresentationLayer.Controllers
 {
     public class ClienteController : Controller
     {
+
         //Métodos Http mais populares são GET e POST. Por padrão, todo hiperlink ou url digitada manualmente, efetuará chamada ao servidor utilizando GET.
         //O POST é utilizado quando queremos ENVIAR dados ao servidor, então é mais comum termos ele em um form com vários componentes inputs.
         [HttpGet]
@@ -27,7 +28,7 @@ namespace MVCWebPresentationLayer.Controllers
         {
             ClienteService svc = new ClienteService();
 
-            //Transforma o DTO em ViewModel (AUTOMAPPER)
+            //Transforma o DTO em ViewModel (AUTOMAPPER) para jogar no service
             var configuration = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ClienteInsertViewModel, ClienteDTO>();
@@ -59,10 +60,34 @@ namespace MVCWebPresentationLayer.Controllers
             return View();
         }
 
+        //meusite.com/Cliente
+        //meusite.com/Cliente/Index
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                ClienteService svc = new ClienteService();
+                List<ClienteDTO> clientes = svc.GetData();
+
+                var configuration = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<ClienteDTO, ClienteQueryViewModel>();
+                });
+
+                IMapper mapper = configuration.CreateMapper();
+
+                //Transforma o ClienteDTO em um ClienteQueryViewModel e trás os intens pra tela.
+                //Este objeto "dados" é uma lista de objetos ViewModel.
+                List<ClienteQueryViewModel> dados = mapper.Map<List<ClienteQueryViewModel>>(clientes);
+
+                //Os dados no index(html) vira Model(objeto).
+                return View(dados);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
     }
 }
