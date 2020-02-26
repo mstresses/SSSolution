@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +12,7 @@ namespace DAO
 {
     public class SSContext : DbContext
     {
-        //C:\Users\900192\Desktop\SSNeco
-        public SSContext():base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\mstre\Documents\SSNeco.mdf;Integrated Security=True;Connect Timeout=30")
+        public SSContext():base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\900192\Desktop\SSdoCelo.mdf;Integrated Security=True;Connect Timeout=30")
         {
         }
 
@@ -22,8 +22,9 @@ namespace DAO
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Remove a pluralização das tabelas no banco.
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Properties()
                         .Where(c => c.PropertyType == typeof(string))
                         .Configure(c => c.IsRequired().IsUnicode(false));

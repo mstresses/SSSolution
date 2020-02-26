@@ -9,7 +9,10 @@ namespace BLL
 {
     public interface IClienteService
     {
-        void Insert(ClienteDTO cliente);
-        List<ClienteDTO> GetData();
+        Task Insert(ClienteDTO cliente);
+        Task Update(ClienteDTO cliente);
+        Task Delete(ClienteDTO cliente);
+        Task<List<ClienteDTO>> GetData();
+        Task<ClienteDTO> GetCostumerByID(int id);
     }
 }
