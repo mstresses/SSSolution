@@ -7,12 +7,12 @@
 <h2>Clientes Cadastrados</h2>
 
 <table style="color:darkblue" class="table">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>Email</th>
-        <th>Data de Nascimento</th>
+    <tr style="font-size:large">
+        <th style="color:darkorange">ID</th>
+        <th style="color:darkorange">Nome</th>
+        <th style="color:darkorange">CPF</th>
+        <th style="color:darkorange">Email</th>
+        <th style="color:darkorange">Data de Nascimento</th>
     </tr>
     @foreach (MVCWebPresentationLayer.Models.ClienteQueryViewModel item in Model)
     {
@@ -24,11 +24,19 @@
             <th>@item.DataNascimento.ToString("dd/MM/yyyy")</th>
         </tr>
     }
-<div class="container">
-    <ul class="pagination">
-        <li>
-
+</table>
+<nav aria-label="...">
+    <ul class="pagination text-justify-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Anterior</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active">
+            <a class="page-link" href="#">2 <span class="sr-only">(atual)</span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Próximo</a>
         </li>
     </ul>
-</div>
-</table>
+</nav>
