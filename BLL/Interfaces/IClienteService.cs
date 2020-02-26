@@ -11,6 +11,5 @@ namespace BLL
     {
         void Insert(ClienteDTO cliente);
         List<ClienteDTO> GetData();
-
     }
 }

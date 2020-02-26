@@ -50,7 +50,7 @@ namespace BLL.Impl
             {
                 errors.Add(new Error() { Message = "A senha deve ser informada.", FieldName = "Senha" });
             }
-            else if (cliente.Senha.Length <6 || cliente.Senha.Length > 40)
+            else if (cliente.Senha.Length < 6 || cliente.Senha.Length > 40)
             {
                 errors.Add(new Error() { Message = "A senha deve conter entre 6 e 40 caracteres.", FieldName = "Senha" });
             }

@@ -11,7 +11,8 @@ namespace DAO
 {
     public class SSContext : DbContext
     {
-        public SSContext():base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\900192\Desktop\SSNeco.mdf;Integrated Security=True;Connect Timeout=30")
+        //C:\Users\900192\Desktop\SSNeco
+        public SSContext():base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\mstre\Documents\SSNeco.mdf;Integrated Security=True;Connect Timeout=30")
         {
         }
 

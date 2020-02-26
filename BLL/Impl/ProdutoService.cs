@@ -24,7 +24,7 @@ namespace BLL.Impl
             }
             else if (produto.Descricao.Length < 5 || produto.Descricao.Length > 40)
             {
-                errors.Add(new Error() { Message = "A descrição do produto deve conter entre 5 e 40 caracteres.", FieldName = "Descrição" });
+                errors.Add(new Error() { Message = "A descrição do produto deve conter entre 5 e 40 caracteres.", FieldName = "Descricao" });
             }
             #endregion
 
