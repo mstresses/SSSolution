@@ -20,30 +20,30 @@
     <div class="form-group">
         <label class="control-label col-md-2">Preço</label>
         <div class="col-md-10">
-            <input class="form-control" type="text" name="Preco" id="Preco" />
+            <input class="form-control" type="" name="Preco" id="Preco" />
             <span class="text-danger" id="erroPreco" name="erroPreco"></span>
         </div>
     </div>
 
+    @{
+        string[] cor = Enum.GetNames(typeof(DTO.Enums.Cor));
+    }
     <div class="form-group">
-        <label class="control-label col-md-2">Preço</label>
+        <label class="control-label col-md-2">Cor</label>
         <div class="col-md-10">
-            <input class="DropDownList" type="search" name="Cor" id="Cor" />
-            <span class="text-danger" id="erroCor" name="erroCor"></span>
+            <select class="form-control" name="Cor" id="Cor">
+                @for (int i = 0; i < cor.Length; i++)
+                {
+                    <option value="@i">@cor[i]</option>
+                }
+            </select>
         </div>
     </div>
 
-    @*<div class="form-group">
-            <label class=" col-md-2">Cor</label>
-            <div class="col-md-10">
-                <input class="form-control" type="text" name="Cor" id="Cor" />
-                <span class="text-danger" id="erroCor" name="erroCor"></span>
-            </div>
-        </div>*@
-
     <div class="form-group">
         <label class="control-label col-md-2">Vai Pilha</label>
-        <input class="checkbox-inline" type="checkbox" name="VaiPilha" id="VaiPilha" />
+        <input class="checkbox-inline" value="true" type="checkbox" name="VaiPilha" id="VaiPilha" />
+        <input value="false" type="hidden" name="VaiPilha" id="VaiPilha" />
     </div>
 
     <div class="row">
@@ -55,14 +55,6 @@
                 </div>
             </div>
         }
-        @if (ViewBag.Sucesso != null)
-        {
-            <div class="form-group">
-                <div class="col-md-10">
-                    <span class="text-success">@ViewBag.Sucesso</span>
-                </div>
-            </div>
-        }
 
         <div class="form-group">
             <div class="col-md-10">
@@ -71,7 +63,6 @@
             </div>
         </div>
     </div>
-
 </form>
 
 @section scripts{

@@ -18,12 +18,15 @@ namespace DAO
 
         public DbSet<ClienteDTO> Clientes { get; set; }
         public DbSet<ProdutoDTO> Produtos { get; set; }
+        public DbSet<FornecedorDTO> Fornecedores { get; set; }
+        public DbSet<CategoriaDTO> Categorias { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Remove a pluralização das tabelas no banco.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            //Aplica as configurações de formatação nas tabelas.
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Properties()
                         .Where(c => c.PropertyType == typeof(string))

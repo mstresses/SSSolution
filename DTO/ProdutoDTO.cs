@@ -14,5 +14,7 @@ namespace DTO
         public double Preco { get; set; }
         public Cor Cor { get; set; }
         public bool VaiPilha { get; set; }
+        public FornecedorDTO Fornecedor { get; set; }
+        public CategoriaDTO Categoria { get; set; }
     }
 }

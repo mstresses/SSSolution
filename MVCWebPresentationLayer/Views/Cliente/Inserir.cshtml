@@ -8,6 +8,7 @@
     <img src="https://image.freepik.com/vector-gratis/mundo-erotico-signo-neon-tienda-sexo-condon-rosado-pared-ladrillo-azul-marino_1262-13428.jpg" height="200" , width="480">
 </body>*@
 
+
 <form method="post">
 
     <div class="form-group">
@@ -58,21 +59,12 @@
         </div>
     </div>
 
-
     <div class="row">
         @if (ViewBag.MensagemErro != null)
         {
             <div class="form-group">
                 <div class="col-md-10">
                     <span class="text-danger">@ViewBag.MensagemErro</span>
-                </div>
-            </div>
-        }
-        @if (ViewBag.Sucesso != null)
-        {
-            <div class="form-group">
-                <div class="col-md-10">
-                    <span class="text-success">@ViewBag.Sucesso</span>
                 </div>
             </div>
         }
@@ -83,9 +75,7 @@
                 <button style="margin-left: 5px;" class="orange">Limpar</button>
             </div>
         </div>
-
     </div>
-
 </form>
 
 @section scripts{

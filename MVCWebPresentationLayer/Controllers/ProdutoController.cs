@@ -37,9 +37,8 @@ namespace MVCWebPresentationLayer.Controllers
             {
                 await svc.Insert(dto);
                 //Se funcionou, redireciona pra página inicial.
-                //return RedirectToAction("Home", "Index");
                 ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
-                return View();
+                return RedirectToAction("Index", "Produto");
             }
             catch (NecoException ex)
             {
@@ -62,10 +61,7 @@ namespace MVCWebPresentationLayer.Controllers
                 ProdutoService svc = new ProdutoService();
                 List<ProdutoDTO> produtos = await svc.GetProducts(1,10);
 
-                var configuration = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<ProdutoDTO, ProdutoQueryViewModel>();
-                });
+                var configuration = new MapperConfiguration(cfg => {cfg.CreateMap<ProdutoDTO, ProdutoQueryViewModel>();});
 
                 IMapper mapper = configuration.CreateMapper();
 

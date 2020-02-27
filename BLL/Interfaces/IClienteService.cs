@@ -12,7 +12,7 @@ namespace BLL
         Task Insert(ClienteDTO cliente);
         Task Update(ClienteDTO cliente);
         Task Delete(ClienteDTO cliente);
-        Task<List<ClienteDTO>> GetData();
+        Task<List<ClienteDTO>> GetCustomers(int page, int size);
         Task<ClienteDTO> GetCostumerByID(int id);
     }
 }

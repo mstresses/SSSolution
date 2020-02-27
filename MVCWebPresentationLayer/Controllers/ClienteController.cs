@@ -24,15 +24,12 @@ namespace MVCWebPresentationLayer.Controllers
 
         //Precisa condecorar ele, e significa que vai receber dados. SIMILAR AO BUTTON_CLICK
         [HttpPost]
-        public ActionResult Inserir(ClienteInsertViewModel clienteViewModel) //Método dentro do controller define para onde vai o site.
+        public async Task<ActionResult> Inserir(ClienteInsertViewModel clienteViewModel) //Método dentro do controller define para onde vai o site.
         {
             ClienteService svc = new ClienteService();
 
             //Transforma o DTO em ViewModel (AUTOMAPPER) para jogar no service
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ClienteInsertViewModel, ClienteDTO>();
-            });
+            var configuration = new MapperConfiguration(cfg => {cfg.CreateMap<ClienteInsertViewModel, ClienteDTO>();});
 
             IMapper mapper = configuration.CreateMapper();
 
@@ -41,11 +38,10 @@ namespace MVCWebPresentationLayer.Controllers
 
             try
             {
-                svc.Insert(dto);
+                await svc.Insert(dto);
                 //Se funcionou, redireciona pra página inicial.
-                //return RedirectToAction("Home", "Index");
                 ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
-                return View();
+                return RedirectToAction("Index", "Cliente");
             }
             catch (NecoException ex)
             {
@@ -68,12 +64,9 @@ namespace MVCWebPresentationLayer.Controllers
             try
             {
                 ClienteService svc = new ClienteService();
-                List<ClienteDTO> clientes = await svc.GetData();
+                List<ClienteDTO> clientes = await svc.GetCustomers(1, 10);
 
-                var configuration = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<ClienteDTO, ClienteQueryViewModel>();
-                });
+                var configuration = new MapperConfiguration(cfg => {cfg.CreateMap<ClienteDTO, ClienteQueryViewModel>();});
 
                 IMapper mapper = configuration.CreateMapper();
 

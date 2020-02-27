@@ -10,7 +10,6 @@ namespace BLL.Impl
     public class BaseService
     {
         //Classe que automatiza a adição de erros e também verifica se existem erros.
-
         private List<Error> errors = new List<Error>();
 
         protected void AddError(string fieldName, string error)

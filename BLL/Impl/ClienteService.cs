@@ -104,7 +104,7 @@ namespace BLL.Impl
             throw new NotImplementedException();
         }
        
-        public async Task<List<ClienteDTO>> GetData()
+        public async Task<List<ClienteDTO>> GetCustomers(int page, int size)
         {
             try
             {
@@ -122,8 +122,7 @@ namespace BLL.Impl
                 throw new Exception("Erro no banco de dados, contate do administrador.");
             }
         }
-
-        public async Task<ClienteDTO> GetCostumerByID(int id)
+        public Task<ClienteDTO> GetCostumerByID(int id)
         {
             throw new NotImplementedException();
         }
