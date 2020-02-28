@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    interface ICategoriaService
+    public interface ICategoriaService
     {
+        Task Insert(CategoriaDTO categoria);
+        Task Update(CategoriaDTO categoria);
+        Task Delete(CategoriaDTO categoria);
+        Task<List<CategoriaDTO>> GetCategories(int page, int size);
+        Task<CategoriaDTO> GetCategorieByID(int id);
     }
 }

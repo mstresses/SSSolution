@@ -130,13 +130,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriaInsertViewModel.cs" />
+    <Compile Include="Models\CategoriaQueryViewModel.cs" />
     <Compile Include="Models\ClienteQueryViewModel.cs" />
+    <Compile Include="Models\FornecedorInsertViewModel.cs" />
+    <Compile Include="Models\FornecedorQueryViewModel.cs" />
     <Compile Include="Models\ProdutoInsertViewModel.cs" />
     <Compile Include="Models\ProdutoQueryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
