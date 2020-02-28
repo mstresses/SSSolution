@@ -7,5 +7,7 @@ namespace MVCWebPresentationLayer.Models
 {
     public class CategoriaQueryViewModel
     {
+        public int ID { get; set; }
+        public string Categoria { get; set; }
     }
 }

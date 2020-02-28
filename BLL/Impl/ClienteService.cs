@@ -112,7 +112,6 @@ namespace BLL.Impl
                 {
                     //List<ClienteDTO> clientes = context.Clientes.ToListAsync();
                     //return clientes;
-
                     return await context.Clientes.ToListAsync();
                 }
             }
@@ -122,6 +121,7 @@ namespace BLL.Impl
                 throw new Exception("Erro no banco de dados, contate do administrador.");
             }
         }
+
         public Task<ClienteDTO> GetCostumerByID(int id)
         {
             throw new NotImplementedException();

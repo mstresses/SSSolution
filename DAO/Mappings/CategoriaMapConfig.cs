@@ -13,7 +13,6 @@ namespace DAO.Mappings
         public CategoriaMapConfig()
         {
             this.ToTable("CATEGORIAS");
-
         }
     }
 }

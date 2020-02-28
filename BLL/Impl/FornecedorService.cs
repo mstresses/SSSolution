@@ -16,50 +16,56 @@ namespace BLL.Impl
     {
         public async Task Insert(FornecedorDTO fornecedor)
         {
-            //List<Error> errors = new List<Error>();
-
             #region VALIDAÇÃO NOME FORNECEDOR
             if (string.IsNullOrWhiteSpace(fornecedor.Fornecedor))
             {
                 base.AddError("O nome do fornecedor deve ser informado.", "Fornecedor");
-                //errors.Add(new Error() { Message = "A descrição do produto deve ser informada.", FieldName = "Descricao" });
             }
             else
             {
-                fornecedor.Fornecedor = produto.Descricao.Trim();
-                if (produto.Descricao.Length < 5 || produto.Descricao.Length > 40)
+                fornecedor.Fornecedor = fornecedor.Fornecedor.Trim();
+                if (fornecedor.Fornecedor.Length < 5 || fornecedor.Fornecedor.Length > 40)
                 {
-                    base.AddError("A descrição do produto deve conter entre 5 e 40 caracteres.", "Descricao");
-                    //errors.Add(new Error() { Message = "A descrição do produto deve conter entre 5 e 40 caracteres.", FieldName = "Descricao" });
+                    base.AddError("O nome do fornecedor deve conter entre 5 e 40 caracteres.", "Descricao");
                 }
             }
             #endregion
 
-            #region VALIDAÇÃO PREÇO
-            if (produto.Preco <= 0)
+            #region VALIDAÇÃO CNPJ
+            if (string.IsNullOrWhiteSpace(fornecedor.CNPJ))
             {
-                base.AddError("O preço deve ser informado.", "Preco");
-                //errors.Add(new Error() { Message = "O preço deve ser informado.", FieldName = "Preco" });
+                base.AddError("O CNPJ deve ser informado.", "CNPJ");
+            }
+            else
+            {
+                fornecedor.CNPJ = fornecedor.CNPJ.Trim();
+                if (fornecedor.CNPJ.Length != 18)
+                {
+                    base.AddError("O CNPJ deve conter 18 caracteres.", "CNPJ");
+                }
+            }
+            #endregion
+
+            #region VALIDAÇÃO EMAIL
+            if (string.IsNullOrWhiteSpace(fornecedor.Email))
+            {
+                base.AddError("O email deve ser informado.", "Email");
+            }
+            else
+            {
+                fornecedor.Email = fornecedor.Email.Trim();
             }
             #endregion
 
             #region VERIFICAÇÃO DE ERROS
-            ////Após validar todos os campos, verifique se possuímos erros.
-            //if (errors.Count > 0)
-            //{
-            //    throw new NecoException(errors);
-            //}
-
             base.CheckErrors();
             try
             {
-                //é como descartar
                 using (SSContext context = new SSContext())
                 {
-                    context.Produtos.Add(produto);
+                    context.Fornecedores.Add(fornecedor);
                     await context.SaveChangesAsync();
-                }//context.Dispose();
-
+                }
             }
             catch (Exception ex)
             {
@@ -69,23 +75,23 @@ namespace BLL.Impl
             #endregion
         }
 
-        public async Task Update(ProdutoDTO produto)
+        public async Task Update(FornecedorDTO fornecedor)
         {
             throw new NotImplementedException();
         }
 
-        public async Task Delete(ProdutoDTO produto)
+        public async Task Delete(FornecedorDTO fornecedor)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<ProdutoDTO>> GetProducts(int page, int size)
+        public async Task<List<FornecedorDTO>> GetSuppliers(int page, int size)
         {
             try
             {
                 using (SSContext context = new SSContext())
                 {
-                    return await context.Produtos.ToListAsync();
+                    return await context.Fornecedores.ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -95,7 +101,7 @@ namespace BLL.Impl
             }
         }
 
-        public async Task<ProdutoDTO> GetProductByID(int id)
+        public async Task<FornecedorDTO> GetSupplierByID(int id)
         {
             throw new NotImplementedException();
         }
