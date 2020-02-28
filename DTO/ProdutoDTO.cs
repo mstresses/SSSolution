@@ -14,7 +14,7 @@ namespace DTO
         public double Preco { get; set; }
         public Cor Cor { get; set; }
         public bool VaiPilha { get; set; }
-        public int FornecedorID { get; set; }
-        public int CategoriaID { get; set; }
+        public virtual FornecedorDTO FornecedorID { get; set; }
+        public virtual CategoriaDTO CategoriaID { get; set; }
     }
 }

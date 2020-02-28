@@ -12,5 +12,12 @@ namespace DTO
         public string Fornecedor { get; set; }
         public string Email { get; set; }
         public string CNPJ { get; set; }
+
+        public virtual ICollection<FornecedorDTO> Produtos { get; set; }
+
+        public FornecedorDTO()
+        {
+            this.Produtos = new List<FornecedorDTO>();
+        }
     }
 }

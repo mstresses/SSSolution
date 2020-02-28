@@ -17,6 +17,8 @@ namespace DAO.Mappings
             //Já foi configurado nas configurações globais para unicode e required.
             this.Property(p => p.Descricao).HasMaxLength(60);
 
+            this.HasRequired(p => p.CategoriaID).WithMany(p => p.Produtos).WillCascadeOnDelete(false);
+
             //Preço e enum já é required por padrão :)
         }
     }

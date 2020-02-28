@@ -33,19 +33,32 @@ namespace BLL.Impl
 
             base.CheckErrors();
 
+            //MODELO DE PREVENÇÃO 
             #region VALIDAÇÃO ERROS
             try
             {
                 using (SSContext context = new SSContext())
                 {
+                    //SELECT NO BANCO (busca registros com o mesmo nome)
+                    CategoriaDTO categoriaJaCadastrada = await context.Categorias.FirstOrDefaultAsync(c => c.Categoria == categoria.Categoria); 
+                    if (categoriaJaCadastrada != null)
+                    {
+                        //SE ENTROU AQUI, CATEGORIA JÁ CADASTRADA. NÃO VAI RODAR O SAVECHANGES.
+                        throw new NecoException("Essa categoria já foi cadastrada!");
+                    }
+                    
                     context.Categorias.Add(categoria);
                     await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
-                File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
-                throw new Exception("Erro no banco de dados, contate do administrador.");
+                if (ex is NecoException)
+                {
+                    throw ex;
+                }
+                File.WriteAllText("log.txt", ex.Message + " " + ex.StackTrace);
+                throw new Exception("Erro no banco de dados, contate o administrador.");
             }
             #endregion
         }
@@ -66,8 +79,7 @@ namespace BLL.Impl
             {
                 using (SSContext context = new SSContext())
                 {
-                    //List<ClienteDTO> clientes = context.Clientes.ToListAsync();
-                    //return clientes;
+                    //return await context.Categorias.Skip(page*size).Take(size).ToListAsync();
                     return await context.Categorias.ToListAsync();
                 }
             }
@@ -80,7 +92,18 @@ namespace BLL.Impl
 
         public async Task<CategoriaDTO> GetCategorieByID(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SSContext context = new SSContext())
+                {
+                    return await context.Categorias.FindAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
+                throw new Exception("Erro no banco de dados, contate do administrador.");
+            }
         }
     }
 }

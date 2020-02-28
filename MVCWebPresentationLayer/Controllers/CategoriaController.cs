@@ -15,7 +15,7 @@ namespace MVCWebPresentationLayer.Controllers
     public class CategoriaController : Controller
     {
         [HttpGet]
-        public ActionResult Cadastrar()
+        public async Task<ActionResult> Cadastrar()
         {
             return View();
         }
@@ -24,13 +24,11 @@ namespace MVCWebPresentationLayer.Controllers
         public async Task<ActionResult> Cadastrar(CategoriaInsertViewModel categoriaViewModel)
         {
             CategoriaService svc = new CategoriaService();
-
             var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<CategoriaInsertViewModel, CategoriaDTO>(); });
 
             IMapper mapper = configuration.CreateMapper();
 
             CategoriaDTO dto = mapper.Map<CategoriaDTO>(categoriaViewModel);
-
             try
             {
                 await svc.Insert(dto);
@@ -61,9 +59,10 @@ namespace MVCWebPresentationLayer.Controllers
 
                 IMapper mapper = configuration.CreateMapper();
 
-                List<CategoriaQueryViewModel> dados = mapper.Map<List<CategoriaQueryViewModel>>(categorias);
-
-                return View(dados);
+                //COPIAR DO ARQUIVO DA REDE
+                List<CategoriaQueryViewModel> categoriaViewModel = mapper.Map<List<CategoriaQueryViewModel>>(categorias);
+                ViewBag.Categorias = categorias;
+                return View(categoriaViewModel);
             }
             catch (Exception)
             {

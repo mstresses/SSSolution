@@ -17,7 +17,7 @@ namespace MVCWebPresentationLayer.Controllers
         [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {
-            ViewBag.Fornecedores =
+           
             return View();
         }
 
@@ -28,7 +28,7 @@ namespace MVCWebPresentationLayer.Controllers
             ProdutoService svc = new ProdutoService();
 
             //Transforma o DTO em ViewModel (AUTOMAPPER)
-            var configuration = new MapperConfiguration(cfg => {cfg.CreateMap<ProdutoInsertViewModel, ProdutoDTO>();});
+            var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<ProdutoInsertViewModel, ProdutoDTO>(); });
 
             IMapper mapper = configuration.CreateMapper();
             //Transforma o ProdutoInsertViewModel em um ProdutoDTO.
@@ -60,9 +60,9 @@ namespace MVCWebPresentationLayer.Controllers
             try
             {
                 ProdutoService svc = new ProdutoService();
-                List<ProdutoDTO> produtos = await svc.GetProducts(1,10);
+                List<ProdutoDTO> produtos = await svc.GetProducts(1, 10);
 
-                var configuration = new MapperConfiguration(cfg => {cfg.CreateMap<ProdutoDTO, ProdutoQueryViewModel>();});
+                var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<ProdutoDTO, ProdutoQueryViewModel>(); });
 
                 IMapper mapper = configuration.CreateMapper();
 
