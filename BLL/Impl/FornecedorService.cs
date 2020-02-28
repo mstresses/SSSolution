@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Impl
 {
-    class FornecedorService : BaseService, IFornecedorService
+    public class FornecedorService : BaseService, IFornecedorService
     {
         public async Task Insert(FornecedorDTO fornecedor)
         {

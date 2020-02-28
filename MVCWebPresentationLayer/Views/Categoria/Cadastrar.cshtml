@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+
+@*<body>
+        <img src="https://image.freepik.com/vector-gratis/mundo-erotico-signo-neon-tienda-sexo-condon-rosado-pared-ladrillo-azul-marino_1262-13428.jpg" height="200" , width="480">
+    </body>*@
+
+<form method="post">
+    <div class="form-group">
+        <label class="control-label col-md-2">Nome da Categoria</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Categoria" id="Categoria" />
+            <span class="text-danger" id="erroCategoria" name="erroCategoria"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (ViewBag.MensagemErro != null)
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    <span class="text-danger">@ViewBag.MensagemErro</span>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input name="BotaoEnviar" id="BotaoEnviar" type="submit" value="Enviar" />
+                <button style="margin-left: 5px;" class="orange">Limpar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $('#BotaoEnviar').click(function (e) {
+
+            //var descricao document.getElementById("Descricao").value;
+            var sucesso = true;
+            var categoria = $("#Categoria").val();
+
+            //Validações em JQuery(mais fácil de programar)
+            if (categoria == "") {
+                $("#erroCategoria").html("A categoria deve ser informada");
+                sucesso = false;
+            }
+            else {
+                $("#erroCategoria").html("");
+            }
+
+            if (!sucesso) {
+                e.preventDefault()
+            }
+        });
+
+    </script>
+}

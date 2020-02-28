@@ -15,13 +15,13 @@ namespace MVCWebPresentationLayer.Controllers
     public class FornecedorController : Controller
     {
         [HttpGet]
-        public ActionResult Inserir()
+        public ActionResult Cadastrar()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Inserir(FornecedorInsertViewModel fornecedorViewModel)
+        public async Task<ActionResult> Cadastrar(FornecedorInsertViewModel fornecedorViewModel)
         {
             FornecedorService svc = new FornecedorService();
 

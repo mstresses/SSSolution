@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+
+@*<body>
+        <img src="https://image.freepik.com/vector-gratis/mundo-erotico-signo-neon-tienda-sexo-condon-rosado-pared-ladrillo-azul-marino_1262-13428.jpg" height="200" , width="480">
+    </body>*@
+
+<form method="post">
+    <div class="form-group">
+        <label class="control-label col-md-2">Nome Fornecedor</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Fornecedor" id="Fornecedor" />
+            <span class="text-danger" id="erroFornecedor" name="erroFornecedor"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Email</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="Email" id="Email" />
+            <span class="text-danger" id="erroEmail" name="erroEmail"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">CNPJ</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="CNPJ" id="CNPJ" required />
+            <span class="text-danger" id="erroCNPJ" name="erroCNPJ"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (ViewBag.MensagemErro != null)
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    <span class="text-danger">@ViewBag.MensagemErro</span>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input name="BotaoEnviar" id="BotaoEnviar" type="submit" value="Enviar" />
+                <button style="margin-left: 5px;" class="orange">Limpar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        //Este evento será disparado quando o DOM (Document Object Model) for carregado.
+        $(document).ready(function () {
+
+        var $cnpjMask = $("#CNPJ");
+            $cnpjMask.mask('00.000.000/0000-00', { reverse: false });
+
+        $('#BotaoEnviar').click(function (e) {
+
+            //var descricao document.getElementById("Descricao").value;
+            var sucesso = true;
+            var fornecedor = $("#Fornecedor").val();
+            var email = $("#Email").val();
+            var cnpj = $("#CNPJ").val();
+
+            //Validações em JQuery(mais fácil de programar), sempre com o $.
+            if (nome == "") {
+                //document.getElementById("erroDescricao").innerHTML = "A descrição deve ser informada";
+                $("#erroFornecedor").html("O nome do fornecedore deve ser informado.");
+                sucesso = false;
+            }
+            else if (fornecedor.length < 5 || fornecedor.length > 40) {
+                $("#erroFornecedor").html("O nome do fornecedor deve conter entre 5 e 40 caracteres.")
+            }
+            else {
+                $("#erroFornecedor").html("");
+            }
+
+
+            if (cnpj == "") {
+                $("#erroCNPJ").html("O CNPJ deve ser informado.");
+                sucesso = false;
+            }
+            else if (cpf.length != 14) {
+                $("erroCNPJ").html("O CNPJ deve conter 14 caracteres.")
+            }
+            else {
+                $("#erroCNPJ").html("");
+            }
+
+
+            if (email == "") {
+                $("#erroEmail").html("O Email deve ser informado.");
+                sucesso = false;
+            }
+            else if (!validateEmail(email)) {
+                $("#erroEmail").html("Email inválido.");
+                sucesso = false;
+            }
+            else {
+                $("#erroEmail").html("");
+            }
+
+            if (!sucesso) {
+                e.preventDefault()
+            }
+        });
+    });
+    </script>
+}

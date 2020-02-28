@@ -8,6 +8,7 @@ namespace MVCWebPresentationLayer.Models
 {
     public class CategoriaInsertViewModel
     {
+        public int ID { get; set; }
         public string Categoria { get; set; }
     }
 }

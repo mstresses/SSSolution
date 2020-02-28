@@ -17,6 +17,7 @@ namespace MVCWebPresentationLayer.Controllers
         [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {
+            ViewBag.Fornecedores =
             return View();
         }
 

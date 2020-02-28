@@ -189,6 +189,10 @@
     <Content Include="Views\Cliente\Inserir.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Cadastrar.cshtml" />
+    <Content Include="Views\Categoria\Cadastrar.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
