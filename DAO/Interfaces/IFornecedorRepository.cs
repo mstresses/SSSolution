@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Interfaces
+namespace DAO.Interfaces
 {
-    public interface IFornecedorService
+    public interface IFornecedorRepository
     {
         Task Create(FornecedorDTO fornecedor);
 

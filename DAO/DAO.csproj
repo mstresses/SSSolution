@@ -51,8 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FornecedorRepository.cs" />
+    <Compile Include="Interfaces\IFornecedorRepository.cs" />
     <Compile Include="Mappings\CategoriaMapConfig.cs" />
     <Compile Include="Mappings\ClienteMapConfig.cs" />
+    <Compile Include="Mappings\EnderecoMapConfig.cs" />
     <Compile Include="Mappings\FornecedorMapConfig.cs" />
     <Compile Include="Mappings\ProdutoMapConfig.cs" />
     <Compile Include="SSContext.cs" />

@@ -54,6 +54,7 @@
     <Compile Include="Impl\BaseService.cs" />
     <Compile Include="Impl\CategoriaService.cs" />
     <Compile Include="Impl\ClienteService.cs" />
+    <Compile Include="Validators\EnderecoValidator.cs" />
     <Compile Include="Impl\FornecedorService.cs" />
     <Compile Include="Impl\ProdutoService.cs" />
     <Compile Include="Interfaces\ICategoriaService.cs" />

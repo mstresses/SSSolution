@@ -21,7 +21,7 @@ namespace MVCWebPresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(FornecedorInsertViewModel fornecedorViewModel)
+        public async Task<ActionResult> Create(FornecedorInsertViewModel fornecedorViewModel)
         {
             FornecedorService svc = new FornecedorService();
 
@@ -33,7 +33,7 @@ namespace MVCWebPresentationLayer.Controllers
 
             try
             {
-                await svc.Insert(dto);
+                await svc.Create(dto);
                 ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
                 return RedirectToAction("Index", "Fornecedor");
             }
@@ -55,15 +55,15 @@ namespace MVCWebPresentationLayer.Controllers
             {
                 FornecedorService svc = new FornecedorService();
 
-                List<FornecedorDTO> fornecedores = await svc.GetSuppliers(1, 10);
+                //List<FornecedorDTO> fornecedores = await svc.GetSuppliers(1, 10);
 
                 var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<FornecedorDTO, FornecedorQueryViewModel>(); });
 
                 IMapper mapper = configuration.CreateMapper();
 
-                List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
+                //List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
 
-                return View(dados);
+                return View();
             }
             catch (Exception)
             {

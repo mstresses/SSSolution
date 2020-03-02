@@ -12,7 +12,13 @@ namespace DAO.Mappings
     {
         public FornecedorMapConfig()
         {
+
             this.ToTable("FORNECEDORES");
+            this.Property(f => f.CNPJ).IsFixedLength().HasMaxLength(18);
+            this.HasIndex(f => f.CNPJ).IsUnique(true).HasName("UQ_FORNECEDOR_CNPJ");
+            this.Property(f => f.Fornecedor).HasMaxLength(100);
+            this.Property(f => f.Email).HasMaxLength(100);
+            this.HasIndex(f => f.Email).IsUnique(true).HasName("UQ_FORNECEDOR_EMAIL");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO.ComplexTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,6 @@ namespace DTO
         public string Fornecedor { get; set; }
         public string Email { get; set; }
         public string CNPJ { get; set; }
-
-        public virtual ICollection<FornecedorDTO> Produtos { get; set; }
-
-        public FornecedorDTO()
-        {
-            this.Produtos = new List<FornecedorDTO>();
-        }
+        public Endereco Endereco { get; set; }
     }
 }

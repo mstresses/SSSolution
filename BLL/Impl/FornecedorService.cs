@@ -9,12 +9,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Extensions;
+using DAO.Interfaces;
 
 namespace BLL.Impl
 {
-    public class FornecedorService : BaseService, IFornecedorService
+    public class FornecedorService : BaseService, IFornecedorService //BASESERVICE -> NA AMBEV SE UTILIZA *ABSTRACT VALIDATOR*
     {
-        public async Task Insert(FornecedorDTO fornecedor)
+        public async Task Create(FornecedorDTO fornecedor)
         {
             #region VALIDAÇÃO NOME FORNECEDOR
             if (string.IsNullOrWhiteSpace(fornecedor.Fornecedor))
@@ -32,18 +34,10 @@ namespace BLL.Impl
             #endregion
 
             #region VALIDAÇÃO CNPJ
-            if (string.IsNullOrWhiteSpace(fornecedor.CNPJ))
-            {
-                base.AddError("O CNPJ deve ser informado.", "CNPJ");
-            }
-            else
-            {
-                fornecedor.CNPJ = fornecedor.CNPJ.Trim();
-                if (fornecedor.CNPJ.Length != 18)
-                {
-                    base.AddError("O CNPJ deve conter 18 caracteres.", "CNPJ");
-                }
-            }
+
+            string resposta = fornecedor.CNPJ.IsValidCnpj();
+            if (resposta != "") base.AddError("CNPJ", resposta); //IF EM UMA ÚNICA LINHA (SEM CHAVES)
+
             #endregion
 
             #region VALIDAÇÃO EMAIL
@@ -57,53 +51,35 @@ namespace BLL.Impl
             }
             #endregion
 
+            #region VALIDAÇÃO ENDEREÇO
+            List<Error> errors = new EnderecoValidator().Validate(fornecedor.Endereco);
+            foreach (var erroDoEndereco in errors) //ADICIONA OS ERROS DO ENDEREÇO DO FORNECEDOR (CASO ENCONTRE)
+            {
+                base.AddError(erroDoEndereco.FieldName, erroDoEndereco.Message);
+            }
+            #endregion
+            
             #region VERIFICAÇÃO DE ERROS
             base.CheckErrors();
             try
             {
-                using (SSContext context = new SSContext())
-                {
-                    context.Fornecedores.Add(fornecedor);
-                    await context.SaveChangesAsync();
-                }
+                FornecedorRepository repository = new FornecedorRepository();
+                await repository.Create(fornecedor);
             }
             catch (Exception ex)
             {
+                //Exemplo de curto circuito, se a primeira expressão for falsa o C# não chega nem a ler a segunda expressão. PERIGOSO!!!
+                if (ex.InnerException != null && ex.InnerException.InnerException.Message.Contains("UQ"))
+                {
+                    List<Error> error = new List<Error>();
+                    error.Add(new Error() { FieldName = "CNPJ", Message = "CNPJ já cadastrado!" });
+                    throw new NecoException(error);
+                }
+                //Log.Write("Erro 666" + ex.StackTrace);
                 File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
                 throw new Exception("Erro no banco de dados, contate do administrador.");
             }
             #endregion
-        }
-
-        public async Task Update(FornecedorDTO fornecedor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Delete(FornecedorDTO fornecedor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<FornecedorDTO>> GetSuppliers(int page, int size)
-        {
-            try
-            {
-                using (SSContext context = new SSContext())
-                {
-                    return await context.Fornecedores.ToListAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
-                throw new Exception("Erro no banco de dados, contate do administrador.");
-            }
-        }
-
-        public async Task<FornecedorDTO> GetSupplierByID(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
