@@ -18,5 +18,13 @@ namespace DAO
                 await context.SaveChangesAsync();
             }
         }
+
+        public Task<List<FornecedorDTO>> GetSuppliers()
+        {
+            using (var context = new SSContext())
+            {
+                await context.Fornecedores.ToListAsync();
+            }
+        }
     }
 }

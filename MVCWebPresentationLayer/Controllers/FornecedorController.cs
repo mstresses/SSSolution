@@ -3,6 +3,7 @@ using BLL.Impl;
 using Common;
 using DTO;
 using MVCWebPresentationLayer.Models;
+using Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MVCWebPresentationLayer.Controllers
     public class FornecedorController : Controller
     {
         [HttpGet]
-        public ActionResult Cadastrar()
+        public ActionResult Create()
         {
             return View();
         }
@@ -54,21 +55,34 @@ namespace MVCWebPresentationLayer.Controllers
             try
             {
                 FornecedorService svc = new FornecedorService();
-
-                //List<FornecedorDTO> fornecedores = await svc.GetSuppliers(1, 10);
+                List<FornecedorDTO> fornecedores = await svc.GetSuppliers(1, 10);
 
                 var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<FornecedorDTO, FornecedorQueryViewModel>(); });
 
                 IMapper mapper = configuration.CreateMapper();
 
-                //List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
+                //Transforma o ClienteDTO em um ClienteQueryViewModel e trás os intens pra tela.
+                //Este objeto "dados" é uma lista de objetos ViewModel.
+                List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
 
-                return View();
+                //Os dados no index(html) vira Model(objeto).
+                return View(dados);
             }
             catch (Exception)
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult PesquisaCEP(string cep)
+        {
+            cep = cep.Replace("-", "");
+            CEPRemoteService cepSvc = new CEPRemoteService(cep);
+
+            //OBJETO ANONIMO
+            var obj = new { TipoLogradouro = cepSvc.TipoLogradouro, Logradouro = cepSvc.Logradouro, Bairro = cepSvc.Bairro, Cidade = cepSvc.Cidade, UF = cepSvc.UF };
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace DAO.Interfaces
     {
         Task Create(FornecedorDTO fornecedor);
 
+        Task<List<FornecedorDTO>> GetSuppliers();
     }
 }

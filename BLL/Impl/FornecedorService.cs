@@ -81,5 +81,20 @@ namespace BLL.Impl
             }
             #endregion
         }
+        public async Task<List<FornecedorDTO>> GetSuppliers(int page, int size)
+        {
+            try
+            {
+                using (SSContext context = new SSContext())
+                {
+                    return await context.Fornecedores.ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
+                throw new Exception("Erro no banco de dados, contate do administrador.");
+            }
+        }
     }
 }

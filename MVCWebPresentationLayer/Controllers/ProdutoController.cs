@@ -14,10 +14,25 @@ namespace MVCWebPresentationLayer.Controllers
 {
     public class ProdutoController : Controller
     {
+        FornecedorService fsvc = new FornecedorService();
+        CategoriaService csvc = new CategoriaService();
+
         [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {
-           
+            //PEGAR DO CELO, OLHAR CADASTRAR DO PRODUTO TAMBÉM
+            List<FornecedorDTO> fornecedores = await fsvc.GetSuppliers();
+            List<CategoriaDTO> categorias = await csvc.GetCategories();
+
+            ProdutoService svc = new ProdutoService();
+
+            var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<FornecedorDTO, FornecedorInsertViewModel>();
+                                                        cfg => { cfg.CreateMap<CategoriaDTO, CategoriaInsertViewModel>();
+            });
+
+            IMapper mapper = configuration.CreateMapper();
+            List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
+
             return View();
         }
 
