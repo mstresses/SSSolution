@@ -53,7 +53,7 @@ namespace MVCWebPresentationLayer.Controllers
             {
                 CategoriaService svc = new CategoriaService();
 
-                List<CategoriaDTO> categorias = await svc.GetCategories(1, 10);
+                List<CategoriaDTO> categorias = await svc.GetCategories();
 
                 var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<CategoriaDTO, CategoriaQueryViewModel>(); });
 

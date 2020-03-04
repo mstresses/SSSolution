@@ -9,15 +9,30 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
-    public class FornecedorRepository : IFornecedorRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
-        public async Task Create(FornecedorDTO fornecedor)
+        public async Task<UsuarioDTO> Authenticate(string email, string password)
+        {
+            using (var ctx = new SSContext())
+            {
+                UsuarioDTO user = await ctx.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == password);
+                //PESQUISAR ConfigureAwait(false); *IMPORTANTE*
+
+                if (user == null)
+                {
+                    throw new Exception("Email e/ou senha inválidos.");
+                }
+                return user;
+            }
+        }
+
+        public async Task Create(UsuarioDTO usuario)
         {
             try
             {
                 using (var context = new SSContext())
                 {
-                    context.Fornecedores.Add(fornecedor);
+                    context.Usuarios.Add(usuario);
                     await context.SaveChangesAsync();
                 }
             }
@@ -31,11 +46,11 @@ namespace DAO
             }
         }
 
-        public async Task<List<FornecedorDTO>> GetSuppliers()
+        public async Task<List<UsuarioDTO>> GetUsers()
         {
             using (var context = new SSContext())
             {
-                return await context.Fornecedores.ToListAsync();
+                return await context.Usuarios.ToListAsync();
             }
         }
     }

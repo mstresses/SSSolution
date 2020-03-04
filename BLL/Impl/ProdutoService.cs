@@ -14,6 +14,7 @@ namespace BLL.Impl
 {
     public class ProdutoService : BaseService, IProdutoService
     {
+        //QUERY STRING: são as variáveis que ficam dentro da URL. Sempre com interrogação na frente. Sempre utilizada para pesquisas.
         public async Task Insert(ProdutoDTO produto)
         {
             //List<Error> errors = new List<Error>();

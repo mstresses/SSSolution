@@ -12,7 +12,7 @@ namespace BLL.Interfaces
         Task Insert(CategoriaDTO categoria);
         Task Update(CategoriaDTO categoria);
         Task Delete(CategoriaDTO categoria);
-        Task<List<CategoriaDTO>> GetCategories(int page, int size);
+        Task<List<CategoriaDTO>> GetCategories();
         Task<CategoriaDTO> GetCategorieByID(int id);
     }
 }

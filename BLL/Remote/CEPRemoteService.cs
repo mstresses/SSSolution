@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Data;
+using System.Net.Http;
 
-namespace Remote
+namespace BLL.Remote
 {
-    public class CEPRemoteService
+    public class CepRemoteService
     {
-        #region "Propriedades"  
         public string UF
         {
             get;
@@ -43,14 +45,9 @@ namespace Remote
             get;
             private set;
         }
-        #endregion
 
-        #region "Construtor"  
-        /// <summary>  
-        /// WebService para Busca de CEP  
-        ///  </summary>  
-        /// <param  name="CEP"></param>  
-        public CEPRemoteService(string CEP)
+
+        public CepRemoteService(string CEP)
         {
             UF = "";
             Cidade = "";
@@ -77,7 +74,7 @@ namespace Remote
                             Bairro = ds.Tables[0].Rows[0]["bairro"].ToString().Trim();
                             TipoLogradouro = ds.Tables[0].Rows[0]["tipo_logradouro"].ToString().Trim();
                             Logradouro = ds.Tables[0].Rows[0]["logradouro"].ToString().Trim();
-                            ResultadoTXT = "CEP completo";
+                            Resultado = "CEP completo";
                             break;
                         case "2":
                             UF = ds.Tables[0].Rows[0]["uf"].ToString().Trim();
@@ -85,20 +82,22 @@ namespace Remote
                             Bairro = "";
                             TipoLogradouro = "";
                             Logradouro = "";
-                            ResultadoTXT = "CEP único";
-                            break;
-                        default:
-                            UF = "";
-                            Cidade = "";
-                            Bairro = "";
-                            TipoLogradouro = "";
-                            Logradouro = "";
-                            ResultadoTXT = "CEP não encontrado";
+                            ResultadoTXT = "CEP  único";
                             break;
                     }
                 }
             }
+            //Exemplo do retorno da  WEB  
+            //<?xml version="1.0"  encoding="iso-8859-1"?>  
+            //<webservicecep>  
+            //<uf>RS</uf>  
+            //<cidade>Porto  Alegre</cidade>  
+            //<bairro>Passo  D'Areia</bairro>  
+            //<tipo_logradouro>Avenida</tipo_logradouro>  
+            //<logradouro>Assis Brasil</logradouro>  
+            //<resultado>1</resultado>  
+            //<resultado_txt>sucesso - cep  completo</resultado_txt>  
+            //</webservicecep>  
         }
-        #endregion
     }
 }

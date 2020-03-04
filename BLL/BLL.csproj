@@ -54,7 +54,9 @@
     <Compile Include="Impl\BaseService.cs" />
     <Compile Include="Impl\CategoriaService.cs" />
     <Compile Include="Impl\ClienteService.cs" />
-    <Compile Include="Remote\CEPRemoteService.cs" />
+    <Compile Include="Impl\UsuarioService.cs" />
+    <Compile Include="Interfaces\IUsuarioService.cs" />
+    <Compile Include="Remote\CepRemoteService.cs" />
     <Compile Include="Validators\EnderecoValidator.cs" />
     <Compile Include="Impl\FornecedorService.cs" />
     <Compile Include="Impl\ProdutoService.cs" />

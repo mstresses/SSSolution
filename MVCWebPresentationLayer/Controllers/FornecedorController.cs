@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using BLL.Impl;
+using BLL.Remote;
 using Common;
 using DTO;
 using MVCWebPresentationLayer.Models;
-using Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +55,7 @@ namespace MVCWebPresentationLayer.Controllers
             try
             {
                 FornecedorService svc = new FornecedorService();
-                List<FornecedorDTO> fornecedores = await svc.GetSuppliers(1, 10);
+                List<FornecedorDTO> fornecedores = await svc.GetSuppliers();
 
                 var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<FornecedorDTO, FornecedorQueryViewModel>(); });
 
@@ -78,10 +78,14 @@ namespace MVCWebPresentationLayer.Controllers
         public ActionResult PesquisaCEP(string cep)
         {
             cep = cep.Replace("-", "");
-            CEPRemoteService cepSvc = new CEPRemoteService(cep);
-
-            //OBJETO ANONIMO
-            var obj = new { TipoLogradouro = cepSvc.TipoLogradouro, Logradouro = cepSvc.Logradouro, Bairro = cepSvc.Bairro, Cidade = cepSvc.Cidade, UF = cepSvc.UF };
+            CepRemoteService cepSvc = new CepRemoteService(cep);
+            var obj = new
+            {
+                Bairro = cepSvc.Bairro,
+                Rua = cepSvc.Logradouro,
+                UF = cepSvc.UF,
+                Cidade = cepSvc.Cidade
+            };
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }

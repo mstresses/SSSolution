@@ -17,25 +17,30 @@ namespace MVCWebPresentationLayer.Controllers
         FornecedorService fsvc = new FornecedorService();
         CategoriaService csvc = new CategoriaService();
 
-        [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {
-            //PEGAR DO CELO, OLHAR CADASTRAR DO PRODUTO TAMBÉM
             List<FornecedorDTO> fornecedores = await fsvc.GetSuppliers();
             List<CategoriaDTO> categorias = await csvc.GetCategories();
 
-            ProdutoService svc = new ProdutoService();
-
-            var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<FornecedorDTO, FornecedorInsertViewModel>();
-                                                        cfg => { cfg.CreateMap<CategoriaDTO, CategoriaInsertViewModel>();
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FornecedorDTO, FornecedorQueryViewModel>();
+                cfg.CreateMap<CategoriaDTO, CategoriaQueryViewModel>();
             });
 
             IMapper mapper = configuration.CreateMapper();
-            List<FornecedorQueryViewModel> dados = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
+            // new SERService().GetSERByID(4);
+            //Transforma o ClienteInsertViewModel em um ClienteDTO
+
+            //Este objeto "dados" é uma lista de objetos ViewModel
+            List<FornecedorQueryViewModel> dadosFornecedores = mapper.Map<List<FornecedorQueryViewModel>>(fornecedores);
+            List<CategoriaQueryViewModel> dadosCategorias = mapper.Map<List<CategoriaQueryViewModel>>(categorias);
+
+            ViewBag.Fornecedores = dadosFornecedores;
+            ViewBag.Categorias = dadosCategorias;
 
             return View();
         }
-
         //HttpPost, significa que este método irá atender uma requisição feita no back-end via click do botão em um form com httppost da View Testar.
         [HttpPost]
         public async Task<ActionResult> Cadastrar(ProdutoInsertViewModel viewModel) //IGUAL AO BUTTON_CLICK

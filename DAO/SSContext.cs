@@ -20,6 +20,7 @@ namespace DAO
         public DbSet<ProdutoDTO> Produtos { get; set; }
         public DbSet<FornecedorDTO> Fornecedores { get; set; }
         public DbSet<CategoriaDTO> Categorias { get; set; }
+        public DbSet<UsuarioDTO> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

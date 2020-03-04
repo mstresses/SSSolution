@@ -9,62 +9,65 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Extensions;
-using DAO.Interfaces;
 
 namespace BLL.Impl
 {
-    public class FornecedorService : BaseService, IFornecedorService //BASESERVICE -> NA AMBEV SE UTILIZA *ABSTRACT VALIDATOR*
+    public class UsuarioService : BaseService, IUsuarioService
     {
-        public async Task Create(FornecedorDTO fornecedor)
+        UsuarioRepository repository = new UsuarioRepository();
+
+        public async Task Insert(UsuarioDTO usuario)
         {
-            #region VALIDAÇÃO NOME FORNECEDOR
-            if (string.IsNullOrWhiteSpace(fornecedor.Fornecedor))
+            #region VALIDAÇÃO NOME
+            if (string.IsNullOrWhiteSpace(usuario.Nome))
             {
-                base.AddError("O nome do fornecedor deve ser informado.", "Fornecedor");
+                base.AddError("O nome deve ser informado.", "Nome");
+                //errors.Add(new Error() { Message = "O nome deve ser informado.", FieldName = "Nome" });
             }
             else
             {
-                fornecedor.Fornecedor = fornecedor.Fornecedor.Trim();
-                if (fornecedor.Fornecedor.Length < 5 || fornecedor.Fornecedor.Length > 40)
+                usuario.Nome = usuario.Nome.Trim();
+                if (usuario.Nome.Length < 5 || usuario.Nome.Length > 40)
                 {
-                    base.AddError("O nome do fornecedor deve conter entre 5 e 40 caracteres.", "Descricao");
+                    base.AddError("O nome deve conter entre 5 e 40 caracteres.", "Nome");
+                    //errors.Add(new Error() { Message = "O nome deve conter entre 5 e 40 caracteres.", FieldName = "Nome" });
                 }
             }
             #endregion
 
-            #region VALIDAÇÃO CNPJ
-
-            string resposta = fornecedor.CNPJ.IsValidCnpj();
-            if (resposta != "") base.AddError("CNPJ", resposta); //IF EM UMA ÚNICA LINHA (SEM CHAVES)
-
-            #endregion
-
             #region VALIDAÇÃO EMAIL
-            if (string.IsNullOrWhiteSpace(fornecedor.Email))
+            if (string.IsNullOrWhiteSpace(usuario.Email))
             {
                 base.AddError("O email deve ser informado.", "Email");
             }
             else
             {
-                fornecedor.Email = fornecedor.Email.Trim();
+                usuario.Email = usuario.Email.Trim();
             }
             #endregion
 
-            #region VALIDAÇÃO ENDEREÇO
-            List<Error> errors = new EnderecoValidator().Validate(fornecedor.Endereco);
-            foreach (var erroDoEndereco in errors) //ADICIONA OS ERROS DO ENDEREÇO DO FORNECEDOR (CASO ENCONTRE)
+            #region VALIDAÇÃO SENHA
+            if (string.IsNullOrWhiteSpace(usuario.Senha))
             {
-                base.AddError(erroDoEndereco.FieldName, erroDoEndereco.Message);
+                base.AddError("A senha deve ser informada.", "Senha");
+            }
+            else
+            {
+                usuario.Senha = usuario.Senha.Trim();
+                if (usuario.Senha.Length < 6 || usuario.Senha.Length > 40)
+                {
+                    base.AddError("A senha deve conter entre 6 e 40 caracteres.", "Senha");
+                }
             }
             #endregion
-            
-            #region VERIFICAÇÃO DE ERROS
+
             base.CheckErrors();
+
+            #region VALIDAÇÃO ERROS
             try
             {
-                FornecedorRepository repository = new FornecedorRepository();
-                await repository.Create(fornecedor);
+                UsuarioRepository repository = new UsuarioRepository();
+                await repository.Create(usuario);
             }
             catch (Exception ex)
             {
@@ -81,13 +84,14 @@ namespace BLL.Impl
             }
             #endregion
         }
-        public async Task<List<FornecedorDTO>> GetSuppliers()
+
+        public async Task<List<UsuarioDTO>> GetUsers()
         {
             try
             {
                 using (SSContext context = new SSContext())
                 {
-                    return await context.Fornecedores.ToListAsync();
+                    return await context.Usuarios.ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -95,6 +99,11 @@ namespace BLL.Impl
                 File.WriteAllText("log.txt", ex.Message + " - " + ex.StackTrace);
                 throw new Exception("Erro no banco de dados, contate do administrador.");
             }
+        }
+
+        public async Task<UsuarioDTO> Authenticate(string email, string password)
+        {
+            return await repository.Authenticate(email, password);
         }
     }
 }

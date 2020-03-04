@@ -135,16 +135,20 @@
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Insert\CategoriaInsertViewModel.cs" />
+    <Compile Include="Models\Insert\UsuarioInsertViewModel.cs" />
+    <Compile Include="Models\Query\Authenticate.cs" />
     <Compile Include="Models\Query\CategoriaQueryViewModel.cs" />
     <Compile Include="Models\Query\ClienteQueryViewModel.cs" />
     <Compile Include="Models\Insert\FornecedorInsertViewModel.cs" />
     <Compile Include="Models\Query\FornecedorQueryViewModel.cs" />
     <Compile Include="Models\Insert\ProdutoInsertViewModel.cs" />
     <Compile Include="Models\Query\ProdutoQueryViewModel.cs" />
+    <Compile Include="Models\Query\UsuarioQueryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Insert\ClienteInsertViewModel.cs" />
   </ItemGroup>
@@ -192,6 +196,8 @@
     <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Categoria\Cadastrar.cshtml" />
     <Content Include="Views\Fornecedor\Create.cshtml" />
+    <Content Include="Views\Usuario\Cadastrar.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

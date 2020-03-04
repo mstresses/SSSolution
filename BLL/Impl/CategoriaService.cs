@@ -73,7 +73,7 @@ namespace BLL.Impl
             throw new NotImplementedException();
         }
 
-        public async Task<List<CategoriaDTO>> GetCategories(int page, int size)
+        public async Task<List<CategoriaDTO>> GetCategories()
         {
             try
             {
