@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace MVCWebPresentationLayer.Controllers
 {
-    public class CategoriaController : Controller
+    public class CategoriaController : BaseController
     {
         [HttpGet]
         public async Task<ActionResult> Cadastrar()

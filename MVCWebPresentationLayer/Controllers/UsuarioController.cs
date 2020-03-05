@@ -2,7 +2,6 @@
 using BLL.Impl;
 using Common;
 using DTO;
-using MVCWebPresentationLayer.Models;
 using MVCWebPresentationLayer.Models.Insert;
 using System;
 using System.Collections.Generic;
@@ -13,39 +12,37 @@ using System.Web.Mvc;
 
 namespace MVCWebPresentationLayer.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BaseController
     {
         UsuarioService userService = new UsuarioService();
 
         // GET: Usuario
-        [HttpGet]
-        public async Task<ActionResult> Cadastrar()
+        public ActionResult Cadastrar()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(UsuarioInsertViewModel usuarioViewModel)
+        public async Task<ActionResult> Cadastrar(UsuarioInsertViewModel viewModel)
         {
-            UsuarioService svc = new UsuarioService();
-            var configuration = new MapperConfiguration(cfg => { cfg.CreateMap<UsuarioInsertViewModel, UsuarioDTO>(); });
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UsuarioInsertViewModel, UsuarioDTO>();
+            });
 
             IMapper mapper = configuration.CreateMapper();
-
-            UsuarioDTO dto = mapper.Map<UsuarioDTO>(usuarioViewModel);
+            UsuarioDTO dto = mapper.Map<UsuarioDTO>(viewModel);
             try
             {
-                await svc.Insert(dto);
-                ViewBag.MensagemSucesso = ("Cadastrado com sucesso!");
-                return RedirectToAction("Index", "Usuario");
+                await userService.Insert(dto);
             }
-            catch (NecoException ex)
-            {
-                ViewBag.ValidationErrors = ex.Errors;
-            }
+            //catch(NecoException ex)
+            //{
+            // Tratamento de erros do service, ver o exemplo do cadastro de produto/cliente
+            //}
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                ViewBag.Erros = ex.Message;
             }
             return View();
         }
@@ -61,9 +58,11 @@ namespace MVCWebPresentationLayer.Controllers
         {
             try
             {
-                var usuario = await userService.Authenticate(email, senha);
-                HttpCookie cookie = new HttpCookie("USERIDENTITY", usuario.ID.ToString());
-                //Se chegou aqui, sucesso.
+                UsuarioDTO usuario = await userService.Authenticate(email, senha);
+                HttpCookie cookie = new HttpCookie("USERIDENTITY", usuario.ID.ToString()); //GRAVAR USERIDENTITY
+                cookie.Expires = DateTime.MaxValue;
+                Response.Cookies.Add(cookie);
+                return RedirectToAction("Index", "Cliente");
             }
             catch (Exception ex)
             {

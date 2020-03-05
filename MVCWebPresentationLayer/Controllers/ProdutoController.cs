@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace MVCWebPresentationLayer.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutoController : BaseController
     {
         FornecedorService fsvc = new FornecedorService();
         CategoriaService csvc = new CategoriaService();
